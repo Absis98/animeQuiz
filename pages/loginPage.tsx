@@ -13,6 +13,23 @@ export default function LoginPage() {
                 />
             </Box>
             <Box flex="1">
+            {/* <script src="https://accounts.google.com/gsi/client" async></script>
+            <div id="g_id_onload"
+                data-client_id="156069020952-i5vdmutpj4rirtbo7b64g13i09jvr1te.apps.googleusercontent.com"
+                data-context="signin"
+                data-ux_mode="popup"
+                data-login_uri="http://localhost:3000"
+                data-auto_prompt="false">
+            </div>
+
+            <div className="g_id_signin"
+                data-type="standard"
+                data-shape="rectangular"
+                data-theme="outline"
+                data-text="signin_with"
+                data-size="large"
+                data-logo_alignment="left">
+            </div> */}
                 <LoginForm />
             </Box>
         </Box>

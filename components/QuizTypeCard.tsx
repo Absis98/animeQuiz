@@ -5,29 +5,35 @@ export function QuizTypeCard(props: any) {
     const { quizType } = props;
     const { router } = useAppContext();
     const navigateToQuizPage = () => {
-        router.push({pathname: '/quizpage', query: { quizName: quizType.title}})
+        router.push({pathname: `/quiz/${quizType.quizName}`, query: { quizTypeId: quizType.id}})
     }
     return (
         <Box sx={{
-            maxWidth: '240px',
-            maxHeight: '140px',
-            backgroundColor: 'white',
-            padding: '4px',
-            margin: '8px',
+                maxWidth: '360px',
+                maxHeight: '140px',
+                backgroundColor: 'white',
+                margin: '8px',
             }}
             display='flex'
             onClick={navigateToQuizPage}
         >
             <img 
-                src="/download.jpeg" 
-                alt="Description of the image"
-                className="login-page-image" // You can still use your custom class
-                style={{ width: '50%'}}
+                src={quizType.imageURL}
+                alt={quizType.quizName}
+                className="login-page-image"
+                style={{ width: '40%'}}
             />
             
-            <Box display='flex' flexDirection='column'>
-                <span>{quizType.title}</span>
-                <span>{quizType.subtitle}</span>
+            <Box sx={{
+                margin: '8px 0 0 8px'
+            }} display='flex' flexDirection='column' justifyContent='space-between' flexGrow='1'>
+                <Box display='flex' flexDirection='column'>
+                    <span className="quiz-type-title">{quizType.quizName}</span>
+                    <span className="quiz-type-subtitle">{quizType.subText}</span>
+                </Box>
+                <Box sx={{
+                    marginY: '16px'
+                }}>Total Attempts: {quizType.totalAttempts}</Box>
             </Box>
         </Box>
     )

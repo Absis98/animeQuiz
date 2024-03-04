@@ -50,9 +50,12 @@ export default function SignIn() {
     const data = validateUser({
         email,
         password,
-      }).then((resp) => {
-        if (resp?.status === 200) {
-            setUserData(resp?.data);
+      }).then((res) => {
+        if (res?.status === 200) {
+            setUserData(res?.data);
+            localStorage.setItem('userId', res.data.id);
+            localStorage.setItem('userName', res.data.name);
+            localStorage.setItem('email', res.data.email);
             router.push('/homepage')
         }
       })

@@ -2,22 +2,25 @@ import { useAppContext } from "@/AppContext";
 import { getQuestionsList, verifyAnswers } from "@/api/questions"
 import { QuestionForm } from "@/components/QuizPage/QuestionForm";
 import { QuizProgressBar } from "@/components/QuizPage/QuizProgressBar";
-import ScoreScreen from "@/pages/quizpage/scorescreen";
+import ScoreScreen from "@/components/QuizPage/ScoreScreen";
 import { Box } from "@mui/material";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react"
+import { QUESTION_TIMER } from "./Constants";
 
 export default function QuizQuestions() {
-    
+    const searchParams = useSearchParams();
     const [questions, setQuestions] = useState([] as any[]);
     const [inprogressQuestion, setInprogressQuestion] = useState(0);
     const [answers, setAnswers] = useState([] as any[]);
-    const [timer, setTimer] = useState(20);
+    const [timer, setTimer] = useState(QUESTION_TIMER);
     const [quizSessionId, setQuizSessionId] = useState(null);
     const [score, setScore] = useState(null);
+    const [displayScores, setDisplayScores] = useState(false)
 
     const setAnswer = (questionId: number, answer: string) => {
         setAnswers((value) => {
-            return value.length ? [...value, { id: questionId, answer, timeTaken: 20 - timer}] : [{ id: questionId, answer, timeTaken: 20 - timer}];
+            return value.length ? [...value, { id: questionId, answer, timeTaken: QUESTION_TIMER - timer}] : [{ id: questionId, answer, timeTaken: QUESTION_TIMER - timer}];
         });
     }
 
@@ -25,9 +28,9 @@ export default function QuizQuestions() {
         if (inprogressQuestion === questions.length - 1) {
             setInprogressQuestion(-1);
             verifyAnswers({sessionId: quizSessionId, answers}).then((res: any) => {
-                const result = res.data.reduce((acc, curr) => curr.isCorrect ? acc + 1 : acc);
+                const result = res.data.reduce((acc: number, curr) => curr.isCorrect ? acc + 1 : acc, 0);
                 setScore(result);
-                // router.push({pathname: '/quizpage/scorescreen'})
+                setDisplayScores(true)
             });
         } else {
             setInprogressQuestion(inprogressQuestion + 1);
@@ -35,24 +38,22 @@ export default function QuizQuestions() {
     }
 
     useEffect(() => {
-        getQuestionsList().then((res) => {
+        const userId = localStorage.getItem('userId');
+        const quizTypeId = searchParams.get('quizTypeId');
+        getQuestionsList(userId, quizTypeId).then((res) => {
             setQuestions(res?.data.questions);
             setQuizSessionId(res?.data.sessionId);
         })
-
-        return () => {
-            console.log('unmounted')
-        }
     }, [])
 
     let timerHandler: any;
+
     useEffect(() => {
         if (timer > 0) {
             timerHandler = setInterval(() => { setTimer(timer - 1)}, 1000)
         }
         
         if (timer <= 0) {
-            setTimer(20);
             timeupHandler();
         }
         return () => {
@@ -68,13 +69,13 @@ export default function QuizQuestions() {
         if (answers.length) {
             moveToNextQuestion();
             clearInterval(timerHandler);
-            setTimer(20);
+            setTimer(QUESTION_TIMER);
         }
     }, [answers])
     
     return (
         <div>
-            {questions?.length && inprogressQuestion >= 0 &&  <Box my={4}
+            {questions?.length && !displayScores && inprogressQuestion >= 0 &&  <Box my={4}
                 display="flex"
                 flexDirection="column"
                 alignItems="center"
@@ -92,7 +93,7 @@ export default function QuizQuestions() {
                     setAnswer={(answer: any) => setAnswer(questions[inprogressQuestion]?.id, answer)}
                 />
             </Box>}
-            <ScoreScreen />
+            {displayScores && <ScoreScreen score={score} totalQuestions={questions.length}/>}
         </div>
     )
 } 

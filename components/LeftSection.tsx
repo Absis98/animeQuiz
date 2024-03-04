@@ -8,7 +8,7 @@ export function LeftSection() {
         <Box sx={{
             backgroundColor: 'ECECEC',
             border: '1px solid black',
-            width: '10%',
+            width: '15%',
             padding: '10px'
         }}
         height='100%' 
