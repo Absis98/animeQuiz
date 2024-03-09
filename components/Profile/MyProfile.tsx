@@ -38,7 +38,8 @@ export function MyProfile(props: any) {
         >
             <Box className="circle" width='60px' height='60px'>{initials}</Box>
             <Box display='flex' flexDirection='column' justifyContent='center' marginLeft='16px'>
-                <Box fontSize='2rem'>My profile</Box>
+                <Box fontSize='1.5rem'>{userData.name}</Box>
+                <Box fontSize='1.2rem'>{userData.email}</Box>
                 <Box display='flex'>{profileStats.map((stat) => 
                     <Box 
                         key={stat.title}
@@ -46,12 +47,15 @@ export function MyProfile(props: any) {
                             padding: '16px',
                             marginX:'8px', 
                             marginTop:'16px',
-                            boxShadow: '1px 1px 1px 1px grey'
+                            boxShadow: '1px 1px 1px 1px grey',
+                            backgroundColor: 'pink'
+
                         }}>
                         <Box 
                             sx={{
                                 boxShadow: '2px 2px 2px 2px grey',
-                                padding: '8px'
+                                padding: '8px',
+                                backgroundColor:'white'
                             }}    
                         >
                             <div>{stat.value}</div>

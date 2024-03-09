@@ -28,6 +28,7 @@ export default function QuizQuestions() {
             setInprogressQuestion(-1);
             verifyAnswers({sessionId: quizSessionId, answers}).then((res: any) => {
                 const result = res.data.reduce((acc: number, curr: any) => curr.isCorrect ? acc + 1 : acc, 0);
+                
                 setScore(result);
                 setDisplayScores(true)
             });

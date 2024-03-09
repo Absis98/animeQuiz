@@ -38,7 +38,17 @@ export function QuizStatistics(props: any) {
                         marginX: '8px'
                     }}
                 >
-                    <Box marginX={"auto"} marginY={"8px"}><stat.icon size={50}/></Box>
+                    <Box 
+                        display='flex'
+                        justifyContent='center'
+                        paddingY={"8px"}
+                        sx={{
+                            backgroundColor: 'pink',
+                            width: '100%'
+                        }}
+                    >
+                        <stat.icon size={50}/>
+                    </Box>
                     <span>{stat.title}</span>
                     <Box marginX={"auto"}>{stat.value}</Box>
                 </Box>

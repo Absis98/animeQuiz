@@ -27,3 +27,13 @@ body {
 .cp {
     cursor: pointer;
 }
+
+.left-nav-page-link {
+    padding: 8px 8px;
+    background-color: white;
+}
+
+.left-nav-page-link-selected {
+    padding: 8px 8px;
+    background-color: pink;
+}
