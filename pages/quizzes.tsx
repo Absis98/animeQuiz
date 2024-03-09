@@ -1,7 +1,7 @@
 import { QuizTypeCard } from "@/components/QuizTypeCard";
 import { Box } from "@mui/material";
 
-export function Quizzes() {
+export default function Quizzes() {
     const availableQuizzes = [{title: 'Anime Quix', subtitle: 'Test your Anime knowledge'}];
     return (
         <Box display='flex' flexWrap='wrap'>

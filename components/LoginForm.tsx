@@ -2,13 +2,15 @@ import { useAppContext } from "@/AppContext";
 import SignIn from "./SignIn"
 import Box from '@mui/material/Box';
 import { useEffect } from "react";
+import { userState } from "@/state/atoms";
+import { useRecoilState } from "recoil";
 
 export function LoginForm() {
-
-    const { userData, router } = useAppContext();
+    const [userData] = useRecoilState(userState);
+    const { router } = useAppContext();
 
     useEffect(() => {
-        if (userData.id) {
+        if (userData?.id) {
             router.push('/homepage')
         }
     })

@@ -1,5 +1,4 @@
 import axios from "@/utils/axios";
-import { useAppContext } from "@/AppContext";
 
 export const getQuestionsList = async (userId: number, quizType: number) => {
     try {

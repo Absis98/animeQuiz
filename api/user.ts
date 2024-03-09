@@ -10,7 +10,10 @@ export const validateUser = async (data: ValidateUserData) => {
     }
   };
 
-  export const useUserData = () => {
-    const { userData } = useAppContext();
-    return userData;
+export const getQuizSessionsForUser = async (userId: number) => {
+  try {
+    const response = await axios.get(`/api/user-profile/sessions/${userId}`,); // Example endpoint and data
+      return response;
+  } catch (error) {
   }
+};

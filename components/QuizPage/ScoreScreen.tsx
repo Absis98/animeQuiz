@@ -1,9 +1,7 @@
 import { useAppContext } from "@/AppContext";
-import QuizQuestions from "@/components/QuizPage/QuizQuestions";
 import { Box, Button, LinearProgress } from "@mui/material";
-import { useEffect } from "react";
 
-export default function ScoreScreen(props) {
+export default function ScoreScreen(props: any) {
     const { router } = useAppContext();
     
     const getProgressValue = () => {

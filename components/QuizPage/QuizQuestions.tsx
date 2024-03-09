@@ -1,4 +1,3 @@
-import { useAppContext } from "@/AppContext";
 import { getQuestionsList, verifyAnswers } from "@/api/questions"
 import { QuestionForm } from "@/components/QuizPage/QuestionForm";
 import { QuizProgressBar } from "@/components/QuizPage/QuizProgressBar";
@@ -28,7 +27,7 @@ export default function QuizQuestions() {
         if (inprogressQuestion === questions.length - 1) {
             setInprogressQuestion(-1);
             verifyAnswers({sessionId: quizSessionId, answers}).then((res: any) => {
-                const result = res.data.reduce((acc: number, curr) => curr.isCorrect ? acc + 1 : acc, 0);
+                const result = res.data.reduce((acc: number, curr: any) => curr.isCorrect ? acc + 1 : acc, 0);
                 setScore(result);
                 setDisplayScores(true)
             });
@@ -38,8 +37,8 @@ export default function QuizQuestions() {
     }
 
     useEffect(() => {
-        const userId = localStorage.getItem('userId');
-        const quizTypeId = searchParams.get('quizTypeId');
+        const userId = Number(localStorage.getItem('userId'));
+        const quizTypeId = Number(searchParams.get('quizTypeId'));
         getQuestionsList(userId, quizTypeId).then((res) => {
             setQuestions(res?.data.questions);
             setQuizSessionId(res?.data.sessionId);

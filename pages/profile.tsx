@@ -1,8 +1,9 @@
 import { LeftSection } from "@/components/LeftSection";
 import { Box } from "@mui/material";
-import { Quizzes } from "@/components/QuizzesList";
+import { ProfileContainer } from "@/components/Profile/ProfileContainer";
 
 export default function Homepage() {
+
     return (
             <Box 
                 sx={{
@@ -13,7 +14,7 @@ export default function Homepage() {
                 display='flex'
                 flexDirection='row'>
                 <LeftSection />
-                <Quizzes />
+                <ProfileContainer />
             </Box>
     )
 }

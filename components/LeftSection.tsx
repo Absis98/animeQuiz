@@ -1,9 +1,12 @@
 import { Box, Stack } from "@mui/material"
-import { useUserData } from "@/api/user"
 import { UserProfileCard } from "./UserProfileCard";
+import { useAppContext } from "@/AppContext";
 
 export function LeftSection() {
-    const userData = useUserData();
+    const { router } = useAppContext();
+    const handleOnClickQuizzes = () => {
+        router.push('/homepage')
+    }
     return (
         <Box sx={{
             backgroundColor: 'ECECEC',
@@ -18,8 +21,7 @@ export function LeftSection() {
             <Stack sx={{
                 marginTop: '32px'
             }} spacing={2}>
-                <div>Quizzes</div>
-                <div>Scores</div>
+                <div className="cp" onClick={handleOnClickQuizzes}>Quizzes</div>
             </Stack>
 
         </Box>

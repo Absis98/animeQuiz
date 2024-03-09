@@ -14,6 +14,8 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { validateUser } from '@/api/user';
 import { useAppContext } from '@/AppContext';
+import { userState } from '@/state/atoms';
+import { useRecoilState } from 'recoil';
 
 function Copyright(props: any) {
   return (
@@ -35,7 +37,8 @@ export default function SignIn() {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
 
-    const { setUserData, router } = useAppContext();
+    const [userData, setUserData] = useRecoilState(userState);
+    const { router } = useAppContext();
 
     const handleEmailChange = (event: any) => {
         setEmail(event.target.value || '');
